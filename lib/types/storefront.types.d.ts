@@ -12,13 +12,69 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  /**
+   * A string containing a hexadecimal representation of a color.
+   *
+   * For example, "#6A8D48".
+   *
+   */
   Color: { input: any; output: any; }
+  /**
+   * Represents an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)-encoded date and time string.
+   * For example, 3:50 pm on September 7, 2019 in the time zone of UTC (Coordinated Universal Time) is
+   * represented as `"2019-09-07T15:50:00Z`".
+   *
+   */
   DateTime: { input: any; output: any; }
+  /**
+   * A signed decimal number, which supports arbitrary precision and is serialized as a string.
+   *
+   * Example values: `"29.99"`, `"29.999"`.
+   *
+   */
   Decimal: { input: any; output: any; }
+  /**
+   * A string containing HTML code. Refer to the [HTML spec](https://html.spec.whatwg.org/#elements-3) for a
+   * complete list of HTML elements.
+   *
+   * Example value: `"<p>Grey cotton knit sweater.</p>"`
+   *
+   */
   HTML: { input: any; output: any; }
+  /** An ISO 8601-encoded datetime */
   ISO8601DateTime: { input: any; output: any; }
+  /**
+   * A [JSON](https://www.json.org/json-en.html) object.
+   *
+   * Example value:
+   * `{
+   *   "product": {
+   *     "id": "gid://shopify/Product/1346443542550",
+   *     "title": "White T-shirt",
+   *     "options": [{
+   *       "name": "Size",
+   *       "values": ["M", "L"]
+   *     }]
+   *   }
+   * }`
+   *
+   */
   JSON: { input: any; output: any; }
+  /**
+   * Represents an [RFC 3986](https://datatracker.ietf.org/doc/html/rfc3986) and
+   * [RFC 3987](https://datatracker.ietf.org/doc/html/rfc3987)-compliant URI string.
+   *
+   * For example, `"https://example.myshopify.com"` is a valid URL. It includes a scheme (`https`) and a host
+   * (`example.myshopify.com`).
+   *
+   */
   URL: { input: any; output: any; }
+  /**
+   * An unsigned 64-bit integer. Represents whole numeric values between 0 and 2^64 - 1 encoded as a string of base-10 digits.
+   *
+   * Example value: `"50"`.
+   *
+   */
   UnsignedInt64: { input: any; output: any; }
 };
 

@@ -42,13 +42,20 @@ export async function shopifyFetch<T>({
     });
 
     if (errors) {
-      console.error("Shopify GraphQL Errors:", JSON.stringify(errors, null, 2));
-      throw new Error(`[Shopify API Error]: ${errors[0].message}`);
+      const message =
+        errors.graphQLErrors?.[0]?.message ||
+        errors.message ||
+        "Unknown Shopify API Error";
+      throw new Error(`[Shopify API Error]: ${message}`);
     }
 
     return data as T;
-  } catch (error) {
-    console.error("Shopify Fetch Network Error:", error);
-    throw error;
+  } catch (error: any) {
+    if (error.message?.includes("[Shopify API Error]")) {
+      throw error;
+    }
+    throw new Error(
+      `[Shopify Network Error]: ${error.message || "Connection failed"}`,
+    );
   }
 }

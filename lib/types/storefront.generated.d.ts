@@ -180,12 +180,26 @@ export type RemoveFromCartMutation = { cartLinesRemove?: StorefrontTypes.Maybe<{
         )> } }
     )> }> };
 
+export type GetBestSellingProductsQueryVariables = StorefrontTypes.Exact<{
+  first: StorefrontTypes.Scalars['Int']['input'];
+}>;
+
+
+export type GetBestSellingProductsQuery = { products: { nodes: Array<(
+      Pick<StorefrontTypes.Product, 'id' | 'title' | 'handle' | 'descriptionHtml'>
+      & { priceRange: { minVariantPrice: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }, images: { nodes: Array<Pick<StorefrontTypes.Image, 'url' | 'altText' | 'width' | 'height'>> }, variants: { nodes: Array<(
+          Pick<StorefrontTypes.ProductVariant, 'id' | 'availableForSale'>
+          & { price: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }
+        )> } }
+    )> } };
+
 interface GeneratedQueryTypes {
   "\n  \n  query GetAllProducts($first: Int!, $after: String) {\n    products(first: $first, after: $after) {\n      nodes {\n        ...ProductDetails\n        availableForSale\n        vendor\n        productType\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n": {return: GetAllProductsQuery, variables: GetAllProductsQueryVariables},
   "\n  query GetMenu($handle: String!) {\n    menu(handle: $handle) {\n      items {\n        title\n        url\n      }\n    }\n  }\n": {return: GetMenuQuery, variables: GetMenuQueryVariables},
   "\n  \n  query getCart($cartId: ID!) {\n    cart(id: $cartId) {\n      ...CartDetails\n    }\n  }\n": {return: GetCartQuery, variables: GetCartQueryVariables},
   "\n  \n  query GetProduct($handle: String!) {\n    product(handle: $handle) {\n      ...ProductDetails\n      seo {\n        description\n        title\n      }\n    }\n  }\n": {return: GetProductQuery, variables: GetProductQueryVariables},
   "\n  query GetAllHandles {\n    products(first: 250) {\n      nodes {\n        handle\n      }\n    }\n  }\n": {return: GetAllHandlesQuery, variables: GetAllHandlesQueryVariables},
+  "\n  \n  query GetBestSellingProducts($first: Int!) {\n    products(first: $first, sortKey: BEST_SELLING) {\n      nodes {\n        ...ProductDetails\n      }\n    }\n  }\n": {return: GetBestSellingProductsQuery, variables: GetBestSellingProductsQueryVariables},
 }
 
 interface GeneratedMutationTypes {

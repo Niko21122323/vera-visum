@@ -7,6 +7,11 @@ export const PRODUCT_FRAGMENT = graphql`
     title
     handle
     descriptionHtml
+    collections(first: 1) {
+      nodes {
+        title
+      }
+    }
     priceRange {
       minVariantPrice {
         amount
@@ -175,6 +180,17 @@ export const REMOVE_FROM_CART_MUTATION = graphql`
     cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
       cart {
         ...CartDetails
+      }
+    }
+  }
+`;
+
+export const GET_BEST_SELLING_PRODUCTS_QUERY = graphql`
+  ${PRODUCT_FRAGMENT}
+  query GetBestSellingProducts($first: Int!) {
+    products(first: $first, sortKey: BEST_SELLING) {
+      nodes {
+        ...ProductDetails
       }
     }
   }
