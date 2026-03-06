@@ -8,7 +8,7 @@ const HeroSection = () => {
     <section className="relative overflow-hidden">
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col justify-end min-h-screen pt-48">
-          <div className="pb-20 lg:pb-28">
+          <div className="pb-16 sm:pb-20 lg:pb-28">
             <h1 className="text-background text-pretty max-[370px]:text-3xl text-4xl sm:text-5xl lg:text-6xl xl:text-7xl max-w-[1110px] pb-10 lg:pb-14 leading-tight">
               Elevate Your Look with Frames Designed for Lasting Impression
             </h1>
