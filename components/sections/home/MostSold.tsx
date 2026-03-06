@@ -3,8 +3,13 @@ import { GET_BEST_SELLING_PRODUCTS_QUERY } from "@/lib/graphql/queries";
 import Image from "next/image";
 import Link from "next/link";
 import AddToCartButton from "@/components/buttons/AddToCartButton";
+import { cacheTag, cacheLife } from "next/cache";
 
 export default async function MostSold() {
+  "use cache";
+  cacheLife("hours");
+  cacheTag("best-sellers");
+
   const data = await shopifyFetch<any>({
     query: GET_BEST_SELLING_PRODUCTS_QUERY,
     variables: { first: 3 },
@@ -45,7 +50,6 @@ export default async function MostSold() {
 
                   <div className="flex flex-col gap-1 mb-4">
                     <h3 className="font-heading text-xl">{product.title}</h3>
-                    {/* Collection Name added here */}
                     {collectionTitle && (
                       <span className="text-xs text-muted-foreground uppercase tracking-wider">
                         {collectionTitle}
