@@ -1,12 +1,16 @@
+import { cacheTag, cacheLife } from "next/cache";
 import { shopifyFetch } from "@/lib/shopify";
+
 import { GET_BEST_SELLING_PRODUCTS_QUERY } from "@/lib/graphql/queries";
+
 import Image from "next/image";
 import Link from "next/link";
 import AddToCartButton from "@/components/buttons/AddToCartButton";
-import { cacheTag, cacheLife } from "next/cache";
+import PrimaryButton from "@/components/buttons/PrimaryButton";
 
-export default async function MostSold() {
+const MostSold = async () => {
   "use cache";
+
   cacheLife("hours");
   cacheTag("best-sellers");
 
@@ -18,44 +22,53 @@ export default async function MostSold() {
   const products = data?.products?.nodes || [];
 
   return (
-    <section className="py-20 bg-background">
+    <section className="py-28">
       <div className="container mx-auto px-6">
-        <h2 className="text-4xl font-heading text-center mb-12">
-          The Favorites
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between pb-10 sm:pb-14 gap-y-6">
+          <h2 className="text-4xl lg:text-5xl xl:text-6xl leading-tight max-w-[450px] lg:max-w-[670px]">
+            Our Most Coveted Designs, Chosen by You
+          </h2>
+          <div className="w-fit max-sm:hidden">
+            <PrimaryButton title="View All" link="/" theme="dark" />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-8 sm:gap-y-12 gap-x-4 max-sm:pb-10">
           {products.map((product: any) => {
             const variantId = product.variants.nodes[0]?.id;
             const price = product.priceRange.minVariantPrice;
             const collectionTitle = product.collections?.nodes[0]?.title;
 
             return (
-              <div key={product.id} className="flex flex-col group">
+              <div key={product.id} className="flex flex-col">
                 <Link
-                  href={`/product/${product.handle}`}
-                  className="flex flex-col flex-1"
+                  href={`/products/${product.handle}`}
+                  className="relative flex aspect-square rounded-3xl overflow-hidden group"
                 >
-                  <div className="relative aspect-square overflow-hidden mb-4 rounded-sm bg-secondary">
-                    <Image
-                      src={product.images.nodes[0]?.url || "/placeholder.png"}
-                      alt={product.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute top-4 left-4 bg-background/90 backdrop-blur-sm px-3 py-1 text-[10px] uppercase tracking-widest font-bold">
-                      Bestseller
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col gap-1 mb-4">
-                    <h3 className="font-heading text-xl">{product.title}</h3>
-                    {collectionTitle && (
-                      <span className="text-xs text-muted-foreground uppercase tracking-wider">
-                        {collectionTitle}
-                      </span>
-                    )}
-                    <p className="font-medium text-foreground">
+                  <Image
+                    src={product.images.nodes[0]?.url || "/placeholder.png"}
+                    alt={`${product.title} image`}
+                    width={510}
+                    height={510}
+                    className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out"
+                  />
+                </Link>
+                <div className="pt-6 px-2">
+                  {collectionTitle && (
+                    <p className="text-[12px] text-foreground/60">
+                      {collectionTitle}
+                    </p>
+                  )}
+                  <div className="flex items-center justify-between gap-6 pt-2">
+                    <p
+                      className="text-foreground text-base font-light"
+                      title={product.title}
+                    >
+                      {product.title.length > 19
+                        ? `${product.title.substring(0, 19)}...`
+                        : product.title}
+                    </p>
+                    <p className="font-light text-foreground text-sm">
                       {new Intl.NumberFormat("en-US", {
                         style: "currency",
                         currency: price.currencyCode,
@@ -63,14 +76,18 @@ export default async function MostSold() {
                       }).format(price.amount)}
                     </p>
                   </div>
-                </Link>
-
-                <AddToCartButton variantId={variantId} />
+                </div>
               </div>
             );
           })}
         </div>
+
+        <div className="sm:hidden">
+          <PrimaryButton title="View All" link="/" theme="dark" />
+        </div>
       </div>
     </section>
   );
-}
+};
+
+export default MostSold;
