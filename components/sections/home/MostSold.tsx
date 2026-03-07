@@ -61,11 +61,11 @@ const MostSold = async () => {
                   )}
                   <div className="flex items-center justify-between gap-6 pt-2">
                     <p
-                      className="text-foreground text-base font-light"
+                      className="text-foreground text-base font-light cursor-default"
                       title={product.title}
                     >
-                      {product.title.length > 19
-                        ? `${product.title.substring(0, 19)}...`
+                      {product.title.length > 25
+                        ? `${product.title.substring(0, 25)}...`
                         : product.title}
                     </p>
                     <p className="font-light text-foreground text-sm">

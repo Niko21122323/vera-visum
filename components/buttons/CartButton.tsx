@@ -11,16 +11,18 @@ const CartButton = ({ theme }: { theme: string }) => {
     <button
       type="button"
       onClick={openCart}
-      className={`flex items-center gap-3 lg:px-8 lg:py-3.5 rounded-full cursor-pointer ${theme === "dark" ? "lg:bg-foreground" : "lg:bg-background"}`}
+      className={`flex items-center gap-3 lg:p-3 rounded-full cursor-pointer ${theme === "dark" ? "lg:bg-foreground" : "lg:bg-background"}`}
     >
-      <IoBagOutline
-        className={`text-2xl lg:text-base ${theme === "dark" ? "text-background" : "text-background lg:text-foreground"}`}
-      />
-      <span
-        className={`font-heading max-lg:hidden ${theme === "dark" ? "text-background" : "text-foreground"}`}
-      >
-        Your Cart ({totalQuantity})
-      </span>
+      <div className="relative">
+        <IoBagOutline
+          className={`text-2xl lg:text-base ${theme === "dark" ? "text-background" : "text-background lg:text-foreground"}`}
+        />
+        {totalQuantity !== 0 && (
+          <div className="absolute flex items-center justify-center -top-5 -right-5 size-6 rounded-full bg-red-900">
+            <span className="text-[10px] text-background">{totalQuantity}</span>
+          </div>
+        )}
+      </div>
     </button>
   );
 };

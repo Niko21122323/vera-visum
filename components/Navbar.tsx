@@ -28,7 +28,7 @@ const Navbar = async () => {
   return (
     <nav className="fixed top-0 left-0 w-full h-auto z-50">
       <div className="container mx-auto px-6">
-        <div className="flex items-center justify-between gap-16 py-12">
+        <div className="flex items-center justify-between gap-16 py-8">
           <Link
             href="/"
             className="text-background text-2xl sm:text-3xl md:text-4xl font-heading"
