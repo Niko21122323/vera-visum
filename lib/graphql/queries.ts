@@ -195,3 +195,35 @@ export const GET_BEST_SELLING_PRODUCTS_QUERY = graphql`
     }
   }
 `;
+
+export const GET_COLLECTION_PRODUCTS_QUERY = graphql`
+  ${PRODUCT_FRAGMENT}
+  query GetCollectionProducts($handle: String!, $first: Int!, $after: String) {
+    collection(handle: $handle) {
+      products(first: $first, after: $after) {
+        nodes {
+          ...ProductDetails
+          availableForSale
+          vendor
+          productType
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+      }
+    }
+  }
+`;
+
+export const GET_COLLECTIONS_QUERY = graphql`
+  query GetCollections($first: Int!) {
+    collections(first: $first) {
+      nodes {
+        id
+        title
+        handle
+      }
+    }
+  }
+`;
