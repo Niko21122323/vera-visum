@@ -1,75 +1,12 @@
 import { Suspense } from "react";
-import Link from "next/link";
 import { shopifyFetch } from "@/lib/shopify";
 import {
   ALL_PRODUCTS_QUERY,
   GET_COLLECTION_PRODUCTS_QUERY,
-  GET_COLLECTIONS_QUERY,
 } from "@/lib/graphql/queries";
 import InfiniteProductGrid from "@/components/InfiniteProductGrid";
-
-async function FilterList({ currentFilter }: { currentFilter: string }) {
-  "use cache";
-
-  const data = await shopifyFetch<any>({
-    query: GET_COLLECTIONS_QUERY,
-    variables: { first: 10 },
-  });
-
-  const collections =
-    data?.collections?.nodes?.filter(
-      (col: any) => col.handle !== "frontpage" && col.handle !== "home-page",
-    ) || [];
-
-  return (
-    <div className="flex flex-wrap items-center gap-4">
-      <Link
-        href="?"
-        className={`px-5 py-2.5 rounded-full border text-sm transition-colors duration-200 ${
-          currentFilter === "all"
-            ? "bg-foreground text-background border-foreground"
-            : "bg-transparent text-foreground border-foreground/20 hover:border-foreground"
-        }`}
-      >
-        All Products
-      </Link>
-
-      {collections.map((collection: any) => {
-        const isActive = currentFilter === collection.handle;
-
-        return (
-          <Link
-            key={collection.id}
-            href={`?collection=${collection.handle}`}
-            className={`px-5 py-2.5 rounded-full border text-sm transition-colors duration-200 ${
-              isActive
-                ? "bg-foreground text-background border-foreground"
-                : "bg-transparent text-foreground border-foreground/20 hover:border-foreground"
-            }`}
-          >
-            {collection.title}
-          </Link>
-        );
-      })}
-    </div>
-  );
-}
-
-function GridSkeleton() {
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-12 gap-x-6 pt-8">
-      {Array.from({ length: 8 }).map((_, i) => (
-        <div key={i} className="flex flex-col">
-          <div className="relative aspect-square rounded-3xl bg-foreground/5 mb-4 animate-pulse"></div>
-          <div className="flex items-center justify-between px-1">
-            <div className="h-5 bg-foreground/10 rounded w-2/3 animate-pulse"></div>
-            <div className="h-5 bg-foreground/10 rounded w-1/4 animate-pulse"></div>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
+import FilterButtons from "@/components/products/FilterButtons";
+import ProductsSkeleton from "@/components/skeletons/ProductsSkeleton";
 
 async function ProductsContent({
   searchParams,
@@ -105,10 +42,10 @@ async function ProductsContent({
           <div className="h-10 animate-pulse bg-foreground/10 rounded-full w-full max-w-md"></div>
         }
       >
-        <FilterList currentFilter={currentFilter} />
+        <FilterButtons currentFilter={currentFilter} />
       </Suspense>
 
-      <Suspense key={currentFilter} fallback={<GridSkeleton />}>
+      <Suspense key={currentFilter} fallback={<ProductsSkeleton />}>
         <InfiniteProductGrid
           initialProducts={initialProducts}
           initialPageInfo={initialPageInfo}
@@ -138,7 +75,7 @@ export default function ProductsPage({
             fallback={
               <div className="flex flex-col gap-y-10">
                 <div className="h-10 animate-pulse bg-foreground/10 rounded-full w-full max-w-md"></div>
-                <GridSkeleton />
+                <ProductsSkeleton />
               </div>
             }
           >

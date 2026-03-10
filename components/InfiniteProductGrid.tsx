@@ -12,9 +12,6 @@ const formatPrice = (amount: string) => {
   }).format(parseFloat(amount));
 };
 
-const BLUR_IMAGE =
-  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkqAcAAIUAgUW0RjgAAAAASUVORK5CYII=";
-
 export default function InfiniteProductGrid({
   initialProducts,
   initialPageInfo,
@@ -33,6 +30,7 @@ export default function InfiniteProductGrid({
     if (loading || !pageInfo.hasNextPage) return;
 
     setLoading(true);
+
     try {
       const { products: newProducts, pageInfo: newPageInfo } =
         await fetchMoreProducts(currentFilter, pageInfo.endCursor);
@@ -75,18 +73,16 @@ export default function InfiniteProductGrid({
 
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-12 gap-x-6 pt-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-4 pt-8">
         {products.map((product: any) => (
           <div key={product.id} className="flex flex-col">
             <Link href={`/products/${product.handle}`} className="group">
-              <div className="relative aspect-square rounded-3xl bg-foreground/5 mb-4 overflow-hidden">
+              <div className="relative aspect-square rounded-3xl mb-4 overflow-hidden">
                 <Image
                   src={product.images?.nodes[0]?.url || "/placeholder.png"}
                   alt={product.title}
                   fill
                   loading="lazy"
-                  placeholder="blur"
-                  blurDataURL={BLUR_IMAGE}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out"
                 />

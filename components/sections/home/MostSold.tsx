@@ -5,8 +5,8 @@ import { GET_BEST_SELLING_PRODUCTS_QUERY } from "@/lib/graphql/queries";
 
 import Image from "next/image";
 import Link from "next/link";
-import AddToCartButton from "@/components/buttons/AddToCartButton";
 import PrimaryButton from "@/components/buttons/PrimaryButton";
+import CartIconButton from "@/components/buttons/CartIconButton";
 
 const MostSold = async () => {
   "use cache";
@@ -35,24 +35,29 @@ const MostSold = async () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-8 sm:gap-y-12 gap-x-4 max-sm:pb-10">
           {products.map((product: any) => {
-            const variantId = product.variants.nodes[0]?.id;
             const price = product.priceRange.minVariantPrice;
             const collectionTitle = product.collections?.nodes[0]?.title;
 
             return (
               <div key={product.id} className="flex flex-col">
-                <Link
-                  href={`/products/${product.handle}`}
-                  className="relative flex aspect-square rounded-3xl overflow-hidden group"
-                >
-                  <Image
-                    src={product.images.nodes[0]?.url || "/placeholder.png"}
-                    alt={`${product.title} image`}
-                    width={510}
-                    height={510}
-                    className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out"
-                  />
-                </Link>
+                <div className="relative">
+                  <Link
+                    href={`/products/${product.handle}`}
+                    className="relative flex aspect-square rounded-3xl overflow-hidden group"
+                  >
+                    <Image
+                      src={product.images.nodes[0]?.url || "/placeholder.png"}
+                      alt={`${product.title} image`}
+                      width={510}
+                      height={510}
+                      className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out"
+                    />
+                  </Link>
+
+                  <div className="absolute top-4 right-4 flex items-center gap-4 z-40">
+                    <CartIconButton variantId={product.variants.nodes[0].id} />
+                  </div>
+                </div>
                 <div className="pt-6 px-2">
                   {collectionTitle && (
                     <p className="text-[12px] text-foreground/60">
