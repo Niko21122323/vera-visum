@@ -4,9 +4,9 @@ import {
   ALL_PRODUCTS_QUERY,
   GET_COLLECTION_PRODUCTS_QUERY,
 } from "@/lib/graphql/queries";
-import InfiniteProductGrid from "@/components/InfiniteProductGrid";
 import FilterButtons from "@/components/products/FilterButtons";
 import ProductsSkeleton from "@/components/skeletons/ProductsSkeleton";
+import PaginatedProductGrid from "@/components/InfiniteProductGrid";
 
 async function ProductsContent({
   searchParams,
@@ -22,14 +22,14 @@ async function ProductsContent({
   if (currentFilter === "all") {
     const data = await shopifyFetch<any>({
       query: ALL_PRODUCTS_QUERY,
-      variables: { first: 8 },
+      variables: { first: 6 },
     });
     initialProducts = data?.products?.nodes || [];
     initialPageInfo = data?.products?.pageInfo || initialPageInfo;
   } else {
     const data = await shopifyFetch<any>({
       query: GET_COLLECTION_PRODUCTS_QUERY,
-      variables: { handle: currentFilter, first: 8 },
+      variables: { handle: currentFilter, first: 6 },
     });
     initialProducts = data?.collection?.products?.nodes || [];
     initialPageInfo = data?.collection?.products?.pageInfo || initialPageInfo;
@@ -46,7 +46,7 @@ async function ProductsContent({
       </Suspense>
 
       <Suspense key={currentFilter} fallback={<ProductsSkeleton />}>
-        <InfiniteProductGrid
+        <PaginatedProductGrid
           initialProducts={initialProducts}
           initialPageInfo={initialPageInfo}
           currentFilter={currentFilter}
@@ -62,7 +62,7 @@ export default function ProductsPage({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   return (
-    <section className="py-24 sm:py-32">
+    <section className="py-24 sm:py-56">
       <div className="container mx-auto px-6">
         <div className="flex flex-col gap-y-10">
           <div>

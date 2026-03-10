@@ -3,10 +3,8 @@ import { shopifyFetch } from "@/lib/shopify";
 
 import { GET_BEST_SELLING_PRODUCTS_QUERY } from "@/lib/graphql/queries";
 
-import Image from "next/image";
-import Link from "next/link";
 import PrimaryButton from "@/components/buttons/PrimaryButton";
-import CartIconButton from "@/components/buttons/CartIconButton";
+import ProductCard from "@/components/ProductCard";
 
 const MostSold = async () => {
   "use cache";
@@ -39,50 +37,16 @@ const MostSold = async () => {
             const collectionTitle = product.collections?.nodes[0]?.title;
 
             return (
-              <div key={product.id} className="flex flex-col">
-                <div className="relative">
-                  <Link
-                    href={`/products/${product.handle}`}
-                    className="relative flex aspect-square rounded-3xl overflow-hidden group"
-                  >
-                    <Image
-                      src={product.images.nodes[0]?.url || "/placeholder.png"}
-                      alt={`${product.title} image`}
-                      width={510}
-                      height={510}
-                      className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out"
-                    />
-                  </Link>
-
-                  <div className="absolute top-4 right-4 flex items-center gap-4 z-40">
-                    <CartIconButton variantId={product.variants.nodes[0].id} />
-                  </div>
-                </div>
-                <div className="pt-6 px-2">
-                  {collectionTitle && (
-                    <p className="text-[12px] text-foreground/60">
-                      {collectionTitle}
-                    </p>
-                  )}
-                  <div className="flex items-center justify-between gap-6 pt-2">
-                    <p
-                      className="text-foreground text-base font-light cursor-default"
-                      title={product.title}
-                    >
-                      {product.title.length > 25
-                        ? `${product.title.substring(0, 25)}...`
-                        : product.title}
-                    </p>
-                    <p className="font-light text-foreground text-sm">
-                      {new Intl.NumberFormat("en-US", {
-                        style: "currency",
-                        currency: price.currencyCode,
-                        maximumFractionDigits: 0,
-                      }).format(price.amount)}
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <ProductCard
+                key={product.id}
+                variantId={product.variants.nodes[0].id}
+                productLink={product.handle}
+                title={product.title}
+                image={product.images.nodes[0]?.url}
+                collection={collectionTitle}
+                currency={price.currencyCode}
+                price={price.amount}
+              />
             );
           })}
         </div>

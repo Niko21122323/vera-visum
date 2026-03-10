@@ -10,7 +10,7 @@ export async function fetchMoreProducts(currentFilter: string, cursor: string) {
   if (currentFilter === "all") {
     const data = await shopifyFetch<any>({
       query: ALL_PRODUCTS_QUERY,
-      variables: { first: 8, after: cursor },
+      variables: { first: 6, after: cursor },
     });
     return {
       products: data?.products?.nodes || [],
@@ -19,7 +19,7 @@ export async function fetchMoreProducts(currentFilter: string, cursor: string) {
   } else {
     const data = await shopifyFetch<any>({
       query: GET_COLLECTION_PRODUCTS_QUERY,
-      variables: { handle: currentFilter, first: 8, after: cursor },
+      variables: { handle: currentFilter, first: 6, after: cursor },
     });
     return {
       products: data?.collection?.products?.nodes || [],
