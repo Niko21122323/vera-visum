@@ -24,9 +24,9 @@ const CartIconButton = ({ variantId }: { variantId: string }) => {
       type="button"
       onClick={handleAdd}
       disabled={isPending}
-      className="flex items-center justify-center rounded-full bg-background size-10 cursor-pointer"
+      className="flex items-center justify-center rounded-full bg-background size-10 cursor-pointer group"
     >
-      <IoBagOutline className="text-lg text-foreground/50" />
+      <IoBagOutline className="text-lg text-foreground/50 group-hover:text-foreground transition-colors duration-300 ease-in-out" />
     </button>
   );
 };
