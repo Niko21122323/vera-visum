@@ -1,89 +1,37 @@
-"use client";
-
-import { useState, useRef } from "react";
-import { fetchMoreProducts } from "@/app/actions/product";
+import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 
 export default function PaginatedProductGrid({
-  initialProducts,
-  initialPageInfo,
+  products,
+  currentPage,
+  hasNextPage,
   currentFilter,
 }: {
-  initialProducts: any[];
-  initialPageInfo: { hasNextPage: boolean; endCursor: string };
+  products: any[];
+  currentPage: number;
+  hasNextPage: boolean;
   currentFilter: string;
 }) {
-  const [pagesData, setPagesData] = useState<Record<number, any[]>>({
-    1: initialProducts,
-  });
-  const [cursors, setCursors] = useState<Record<number, string>>({
-    1: initialPageInfo.endCursor,
-  });
-  const [hasNextPage, setHasNextPage] = useState<Record<number, boolean>>({
-    1: initialPageInfo.hasNextPage,
-  });
-  const [currentPage, setCurrentPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const gridRef = useRef<HTMLDivElement>(null);
+  if (products.length === 0) {
+    return (
+      <div className="py-20 text-center">
+        <p className="text-foreground/60 text-lg">No products found.</p>
+      </div>
+    );
+  }
 
-  const maxAvailablePage =
-    Math.max(...Object.keys(pagesData).map(Number)) +
-    (hasNextPage[currentPage] ? 1 : 0);
-
-  const scrollToGrid = () => {
-    if (gridRef.current) {
-      const y =
-        gridRef.current.getBoundingClientRect().top + window.scrollY - 100;
-      window.scrollTo({ top: y, behavior: "smooth" });
-    }
+  // Helper to construct the URL with current filters intact
+  const createPageUrl = (pageNumber: number) => {
+    const params = new URLSearchParams();
+    if (currentFilter !== "all") params.set("collection", currentFilter);
+    if (pageNumber > 1) params.set("page", pageNumber.toString());
+    return `?${params.toString()}`;
   };
-
-  const goToPage = async (pageNumber: number) => {
-    if (pagesData[pageNumber]) {
-      setCurrentPage(pageNumber);
-      scrollToGrid();
-      return;
-    }
-
-    if (
-      !loading &&
-      pageNumber === currentPage + 1 &&
-      hasNextPage[currentPage]
-    ) {
-      setLoading(true);
-      try {
-        const { products: newProducts, pageInfo: newPageInfo } =
-          await fetchMoreProducts(currentFilter, cursors[currentPage]);
-
-        setPagesData((prev) => ({ ...prev, [pageNumber]: newProducts }));
-        setCursors((prev) => ({
-          ...prev,
-          [pageNumber]: newPageInfo.endCursor,
-        }));
-        setHasNextPage((prev) => ({
-          ...prev,
-          [pageNumber]: newPageInfo.hasNextPage,
-        }));
-        setCurrentPage(pageNumber);
-        scrollToGrid();
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    }
-  };
-
-  const currentProducts = pagesData[currentPage] || [];
-  const visiblePages = Array.from(
-    { length: maxAvailablePage },
-    (_, i) => i + 1,
-  );
 
   return (
-    <div ref={gridRef} className="flex flex-col pt-8">
+    <div className="flex flex-col pt-8">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-4">
-        {currentProducts.map((product: any) => {
+        {products.map((product: any) => {
           const price = product.priceRange?.minVariantPrice;
           const variantId = product.variants?.nodes?.[0]?.id;
           const imageUrl =
@@ -103,46 +51,47 @@ export default function PaginatedProductGrid({
         })}
       </div>
 
-      <div className="mt-16 flex items-center justify-center gap-2 pb-10">
-        <button
-          onClick={() => goToPage(currentPage - 1)}
-          disabled={currentPage === 1 || loading}
-          className="px-6 py-2 text-sm font-medium border border-foreground/20 rounded-full hover:bg-foreground/5 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-        >
-          Previous
-        </button>
+      <div className="mt-16 flex items-center justify-center gap-4 pb-10">
+        {/* Previous Button */}
+        {currentPage > 1 ? (
+          <Link
+            href={createPageUrl(currentPage - 1)}
+            scroll={true}
+            className="px-6 py-2 text-sm font-medium border border-foreground/20 rounded-full hover:bg-foreground/5 transition-colors"
+          >
+            Previous
+          </Link>
+        ) : (
+          <button
+            disabled
+            className="px-6 py-2 text-sm font-medium border border-foreground/20 rounded-full opacity-30 cursor-not-allowed"
+          >
+            Previous
+          </button>
+        )}
 
-        <div className="flex items-center gap-1 mx-2">
-          {visiblePages.map((pageNum) => (
-            <button
-              type="button"
-              key={pageNum}
-              onClick={() => goToPage(pageNum)}
-              className={`w-10 h-10 flex items-center justify-center rounded-full text-sm transition-colors ${
-                currentPage === pageNum
-                  ? "bg-foreground text-background font-medium"
-                  : "hover:bg-foreground/5 text-foreground/70"
-              }`}
-            >
-              {loading &&
-              pageNum === currentPage + 1 &&
-              pageNum === maxAvailablePage ? (
-                <div className="h-4 w-4 border-2 border-foreground/30 border-t-foreground rounded-full animate-spin" />
-              ) : (
-                pageNum
-              )}
-            </button>
-          ))}
+        {/* Current Page Indicator */}
+        <div className="w-10 h-10 flex items-center justify-center rounded-full text-sm bg-foreground text-background font-medium">
+          {currentPage}
         </div>
 
-        <button
-          type="button"
-          onClick={() => goToPage(currentPage + 1)}
-          disabled={!hasNextPage[currentPage] || loading}
-          className="px-6 py-2 text-sm font-medium border border-foreground/20 rounded-full hover:bg-foreground/5 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-        >
-          Next
-        </button>
+        {/* Next Button */}
+        {hasNextPage ? (
+          <Link
+            href={createPageUrl(currentPage + 1)}
+            scroll={true}
+            className="px-6 py-2 text-sm font-medium border border-foreground/20 rounded-full hover:bg-foreground/5 transition-colors"
+          >
+            Next
+          </Link>
+        ) : (
+          <button
+            disabled
+            className="px-6 py-2 text-sm font-medium border border-foreground/20 rounded-full opacity-30 cursor-not-allowed"
+          >
+            Next
+          </button>
+        )}
       </div>
     </div>
   );
