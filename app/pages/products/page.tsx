@@ -17,12 +17,8 @@ async function ProductsContent({
 }) {
   const params = await searchParams;
   const currentFilter = (params.collection as string) || "all";
-
-  // 1. Grab the page from the URL (default to 1)
   const currentPage = parseInt((params.page as string) || "1", 10);
   const perPage = 6;
-
-  // 2. Fetch all products up to the requested page (e.g., Page 3 fetches 18 products)
   const fetchLimit = currentPage * perPage;
 
   let allFetchedProducts = [];
@@ -44,7 +40,6 @@ async function ProductsContent({
     hasNextPage = data?.collection?.products?.pageInfo?.hasNextPage || false;
   }
 
-  // 3. Slice the array so we ONLY pass the 6 products for the current page
   const startIndex = (currentPage - 1) * perPage;
   const productsToShow = allFetchedProducts.slice(startIndex, fetchLimit);
 

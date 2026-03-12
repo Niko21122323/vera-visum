@@ -1,3 +1,4 @@
+import CollectionsSection from "@/components/sections/home/CollectionsSection";
 import HeroSection from "@/components/sections/home/HeroSection";
 import MostSold from "@/components/sections/home/MostSold";
 import MostSoldSkeleton from "@/components/skeletons/MostSoldSkeleton";
@@ -10,6 +11,7 @@ export default function Home() {
       <Suspense fallback={<MostSoldSkeleton />}>
         <MostSold />
       </Suspense>
+      <CollectionsSection />
     </main>
   );
 }
