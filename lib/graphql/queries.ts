@@ -227,3 +227,14 @@ export const GET_COLLECTIONS_QUERY = graphql`
     }
   }
 `;
+
+export const GET_NEWEST_PRODUCTS_QUERY = graphql`
+  ${PRODUCT_FRAGMENT}
+  query GetNewestProducts($first: Int!) {
+    products(first: $first, sortKey: CREATED_AT, reverse: true) {
+      nodes {
+        ...ProductDetails
+      }
+    }
+  }
+`;
