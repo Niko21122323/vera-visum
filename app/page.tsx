@@ -1,4 +1,5 @@
 import CollectionsSection from "@/components/sections/home/CollectionsSection";
+import CtaSection from "@/components/sections/home/CtaSection";
 import HeroSection from "@/components/sections/home/HeroSection";
 import MostSold from "@/components/sections/home/MostSold";
 import NewestProductsSection from "@/components/sections/home/NewestProductsSection";
@@ -16,6 +17,7 @@ export default function Home() {
       <Suspense fallback={<MostSoldSkeleton />}>
         <NewestProductsSection />
       </Suspense>
+      <CtaSection />
     </main>
   );
 }
