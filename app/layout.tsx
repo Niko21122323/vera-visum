@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import { Suspense } from "react";
 import CartFetcher from "@/components/cart/CartFetcher";
 import CartComponent from "@/components/cart/CartComponent";
+import FramerProvider from "@/components/providers/FramerProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,13 +34,15 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${geistSans.variable} ${italiana.variable} antialiased`}
       >
-        <Suspense fallback={null}>
-          <CartFetcher />
-        </Suspense>
+        <FramerProvider>
+          <Suspense fallback={null}>
+            <CartFetcher />
+          </Suspense>
 
-        <Navbar />
-        <CartComponent />
-        {children}
+          <Navbar />
+          <CartComponent />
+          {children}
+        </FramerProvider>
       </body>
     </html>
   );

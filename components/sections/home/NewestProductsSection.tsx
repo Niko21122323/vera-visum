@@ -2,8 +2,6 @@ import { cacheTag, cacheLife } from "next/cache";
 import { shopifyFetch } from "@/lib/shopify";
 
 import { GET_NEWEST_PRODUCTS_QUERY } from "@/lib/graphql/queries";
-
-import PrimaryButton from "@/components/buttons/PrimaryButton";
 import ProductCard from "@/components/ProductCard";
 
 const NewestProductsSection = async () => {
@@ -20,11 +18,11 @@ const NewestProductsSection = async () => {
   const products = data?.products?.nodes || [];
 
   return (
-    <section className="py-28">
+    <section className="py-24 lg:py-36 xl:py-44">
       <div className="container mx-auto px-6">
         <div className="pb-10 sm:pb-14">
-          <h2 className="text-4xl lg:text-5xl xl:text-6xl leading-tight max-w-[450px] lg:max-w-[670px]">
-            Our Most Coveted Designs, Chosen by You
+          <h2 className="text-4xl lg:text-5xl xl:text-6xl leading-tight max-w-[650px] lg:max-w-[870px]">
+            Introducing the Newest Additions to Our Signature Collection
           </h2>
         </div>
 
@@ -43,6 +41,7 @@ const NewestProductsSection = async () => {
                 collection={collectionTitle}
                 currency={price.currencyCode}
                 price={price.amount}
+                tag="New"
               />
             );
           })}

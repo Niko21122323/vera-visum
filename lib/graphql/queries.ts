@@ -34,6 +34,10 @@ export const PRODUCT_FRAGMENT = graphql`
           amount
           currencyCode
         }
+        compareAtPrice {
+          amount
+          currencyCode
+        }
       }
     }
   }
@@ -232,6 +236,17 @@ export const GET_NEWEST_PRODUCTS_QUERY = graphql`
   ${PRODUCT_FRAGMENT}
   query GetNewestProducts($first: Int!) {
     products(first: $first, sortKey: CREATED_AT, reverse: true) {
+      nodes {
+        ...ProductDetails
+      }
+    }
+  }
+`;
+
+export const GET_SALE_PRODUCTS_QUERY = graphql`
+  ${PRODUCT_FRAGMENT}
+  query GetSaleProducts($first: Int!) {
+    products(first: $first, query: "compare_at_price:>0") {
       nodes {
         ...ProductDetails
       }

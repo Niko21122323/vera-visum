@@ -15,7 +15,7 @@ const CartButton = ({ theme }: { theme: string }) => {
     >
       <div className="relative">
         <IoBagOutline
-          className={`text-2xl lg:text-base ${theme === "dark" ? "text-background" : "text-background lg:text-foreground"}`}
+          className={`text-2xl lg:text-base ${theme === "dark" ? "text-foreground lg:text-background" : "text-background lg:text-foreground"}`}
         />
         {totalQuantity !== 0 && (
           <div className="absolute flex items-center justify-center -top-5 -right-5 size-6 rounded-full bg-red-900">

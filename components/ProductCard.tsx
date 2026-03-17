@@ -10,6 +10,7 @@ const ProductCard = ({
   title,
   currency,
   price,
+  tag,
 }: any) => {
   return (
     <div className="flex flex-col">
@@ -27,6 +28,13 @@ const ProductCard = ({
           />
         </Link>
 
+        {tag && (
+          <div className="absolute top-5 left-4 z-40">
+            <span className="block px-3 py-1.5 bg-foreground text-background rounded-full text-[12px] font-light">
+              {tag}
+            </span>
+          </div>
+        )}
         <div className="absolute top-4 right-4 flex items-center gap-4 z-40">
           <CartIconButton variantId={variantId} />
         </div>

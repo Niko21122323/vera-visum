@@ -7,7 +7,7 @@ export type ProductDetailsFragment = (
   Pick<StorefrontTypes.Product, 'id' | 'title' | 'handle' | 'descriptionHtml'>
   & { collections: { nodes: Array<Pick<StorefrontTypes.Collection, 'title'>> }, priceRange: { minVariantPrice: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }, images: { nodes: Array<Pick<StorefrontTypes.Image, 'url' | 'altText' | 'width' | 'height'>> }, variants: { nodes: Array<(
       Pick<StorefrontTypes.ProductVariant, 'id' | 'availableForSale'>
-      & { price: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }
+      & { price: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>, compareAtPrice?: StorefrontTypes.Maybe<Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>> }
     )> } }
 );
 
@@ -21,7 +21,7 @@ export type GetAllProductsQuery = { products: { nodes: Array<(
       Pick<StorefrontTypes.Product, 'availableForSale' | 'vendor' | 'productType' | 'id' | 'title' | 'handle' | 'descriptionHtml'>
       & { collections: { nodes: Array<Pick<StorefrontTypes.Collection, 'title'>> }, priceRange: { minVariantPrice: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }, images: { nodes: Array<Pick<StorefrontTypes.Image, 'url' | 'altText' | 'width' | 'height'>> }, variants: { nodes: Array<(
           Pick<StorefrontTypes.ProductVariant, 'id' | 'availableForSale'>
-          & { price: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }
+          & { price: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>, compareAtPrice?: StorefrontTypes.Maybe<Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>> }
         )> } }
     )>, pageInfo: Pick<StorefrontTypes.PageInfo, 'hasNextPage' | 'endCursor'> } };
 
@@ -125,7 +125,7 @@ export type GetProductQuery = { product?: StorefrontTypes.Maybe<(
     Pick<StorefrontTypes.Product, 'id' | 'title' | 'handle' | 'descriptionHtml'>
     & { seo: Pick<StorefrontTypes.Seo, 'description' | 'title'>, collections: { nodes: Array<Pick<StorefrontTypes.Collection, 'title'>> }, priceRange: { minVariantPrice: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }, images: { nodes: Array<Pick<StorefrontTypes.Image, 'url' | 'altText' | 'width' | 'height'>> }, variants: { nodes: Array<(
         Pick<StorefrontTypes.ProductVariant, 'id' | 'availableForSale'>
-        & { price: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }
+        & { price: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>, compareAtPrice?: StorefrontTypes.Maybe<Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>> }
       )> } }
   )> };
 
@@ -189,7 +189,7 @@ export type GetBestSellingProductsQuery = { products: { nodes: Array<(
       Pick<StorefrontTypes.Product, 'id' | 'title' | 'handle' | 'descriptionHtml'>
       & { collections: { nodes: Array<Pick<StorefrontTypes.Collection, 'title'>> }, priceRange: { minVariantPrice: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }, images: { nodes: Array<Pick<StorefrontTypes.Image, 'url' | 'altText' | 'width' | 'height'>> }, variants: { nodes: Array<(
           Pick<StorefrontTypes.ProductVariant, 'id' | 'availableForSale'>
-          & { price: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }
+          & { price: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>, compareAtPrice?: StorefrontTypes.Maybe<Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>> }
         )> } }
     )> } };
 
@@ -204,7 +204,7 @@ export type GetCollectionProductsQuery = { collection?: StorefrontTypes.Maybe<{ 
         Pick<StorefrontTypes.Product, 'availableForSale' | 'vendor' | 'productType' | 'id' | 'title' | 'handle' | 'descriptionHtml'>
         & { collections: { nodes: Array<Pick<StorefrontTypes.Collection, 'title'>> }, priceRange: { minVariantPrice: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }, images: { nodes: Array<Pick<StorefrontTypes.Image, 'url' | 'altText' | 'width' | 'height'>> }, variants: { nodes: Array<(
             Pick<StorefrontTypes.ProductVariant, 'id' | 'availableForSale'>
-            & { price: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }
+            & { price: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>, compareAtPrice?: StorefrontTypes.Maybe<Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>> }
           )> } }
       )>, pageInfo: Pick<StorefrontTypes.PageInfo, 'hasNextPage' | 'endCursor'> } }> };
 
@@ -224,7 +224,20 @@ export type GetNewestProductsQuery = { products: { nodes: Array<(
       Pick<StorefrontTypes.Product, 'id' | 'title' | 'handle' | 'descriptionHtml'>
       & { collections: { nodes: Array<Pick<StorefrontTypes.Collection, 'title'>> }, priceRange: { minVariantPrice: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }, images: { nodes: Array<Pick<StorefrontTypes.Image, 'url' | 'altText' | 'width' | 'height'>> }, variants: { nodes: Array<(
           Pick<StorefrontTypes.ProductVariant, 'id' | 'availableForSale'>
-          & { price: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }
+          & { price: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>, compareAtPrice?: StorefrontTypes.Maybe<Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>> }
+        )> } }
+    )> } };
+
+export type GetSaleProductsQueryVariables = StorefrontTypes.Exact<{
+  first: StorefrontTypes.Scalars['Int']['input'];
+}>;
+
+
+export type GetSaleProductsQuery = { products: { nodes: Array<(
+      Pick<StorefrontTypes.Product, 'id' | 'title' | 'handle' | 'descriptionHtml'>
+      & { collections: { nodes: Array<Pick<StorefrontTypes.Collection, 'title'>> }, priceRange: { minVariantPrice: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }, images: { nodes: Array<Pick<StorefrontTypes.Image, 'url' | 'altText' | 'width' | 'height'>> }, variants: { nodes: Array<(
+          Pick<StorefrontTypes.ProductVariant, 'id' | 'availableForSale'>
+          & { price: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>, compareAtPrice?: StorefrontTypes.Maybe<Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>> }
         )> } }
     )> } };
 
@@ -238,6 +251,7 @@ interface GeneratedQueryTypes {
   "\n  \n  query GetCollectionProducts($handle: String!, $first: Int!, $after: String) {\n    collection(handle: $handle) {\n      products(first: $first, after: $after) {\n        nodes {\n          ...ProductDetails\n          availableForSale\n          vendor\n          productType\n        }\n        pageInfo {\n          hasNextPage\n          endCursor\n        }\n      }\n    }\n  }\n": {return: GetCollectionProductsQuery, variables: GetCollectionProductsQueryVariables},
   "\n  query GetCollections($first: Int!) {\n    collections(first: $first) {\n      nodes {\n        id\n        title\n        handle\n      }\n    }\n  }\n": {return: GetCollectionsQuery, variables: GetCollectionsQueryVariables},
   "\n  \n  query GetNewestProducts($first: Int!) {\n    products(first: $first, sortKey: CREATED_AT, reverse: true) {\n      nodes {\n        ...ProductDetails\n      }\n    }\n  }\n": {return: GetNewestProductsQuery, variables: GetNewestProductsQueryVariables},
+  "\n  \n  query GetSaleProducts($first: Int!) {\n    products(first: $first, query: \"compare_at_price:>0\") {\n      nodes {\n        ...ProductDetails\n      }\n    }\n  }\n": {return: GetSaleProductsQuery, variables: GetSaleProductsQueryVariables},
 }
 
 interface GeneratedMutationTypes {

@@ -29,8 +29,8 @@ const collections = [
 const CollectionsSection = () => {
   return (
     <section>
-      <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 grid-rows-0 gap-0 rounded-3xl overflow-hidden">
+      <div className="lg:container lg:mx-auto lg:px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 grid-rows-0 gap-0 lg:rounded-3xl overflow-hidden">
           {collections.map((collection) => (
             <div
               key={collection.id}
@@ -49,7 +49,7 @@ const CollectionsSection = () => {
                 className="absolute z-20 top-0 left-0 h-full w-full bg-transparent max-lg:hidden"
               />
 
-              <div className="relative flex flex-col sm:flex-row sm:items-end sm:justify-between gap-y-6 z-10 px-6 sm:px-11 pb-6 sm:pb-11 pt-60 sm:pt-80 lg:pt-96 xl:pt-[500px]">
+              <div className="relative flex flex-col sm:flex-row sm:items-end sm:justify-between gap-y-6 z-10 px-6 lg:px-11 pb-6 lg:pb-11 pt-60 sm:pt-80 lg:pt-96 xl:pt-[500px] max-lg:container max-lg:mx-auto">
                 <h4 className="text-3xl sm:text-4xl md:text-5xl text-background sm:max-w-[200px]">
                   {collection.title}
                 </h4>

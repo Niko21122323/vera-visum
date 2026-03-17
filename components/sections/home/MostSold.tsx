@@ -20,7 +20,7 @@ const MostSold = async () => {
   const products = data?.products?.nodes || [];
 
   return (
-    <section className="py-28">
+    <section className="py-24 lg:py-36 xl:py-44">
       <div className="container mx-auto px-6">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between pb-10 sm:pb-14 gap-y-6">
           <h2 className="text-4xl lg:text-5xl xl:text-6xl leading-tight max-w-[450px] lg:max-w-[670px]">
@@ -46,6 +46,7 @@ const MostSold = async () => {
                 collection={collectionTitle}
                 currency={price.currencyCode}
                 price={price.amount}
+                tag="Trending"
               />
             );
           })}

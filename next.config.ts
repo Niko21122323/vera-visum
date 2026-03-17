@@ -8,6 +8,14 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "cdn.shopify.com",
       },
+      {
+        protocol: "https",
+        hostname: "jdgm.fr",
+      },
+      {
+        protocol: "https",
+        hostname: "judgeme.imgix.net",
+      },
     ],
   },
   experimental: {

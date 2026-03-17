@@ -12,7 +12,7 @@ const HeroSection = () => {
             <h1 className="text-background text-pretty max-[370px]:text-3xl text-4xl sm:text-5xl lg:text-6xl xl:text-7xl max-w-[1110px] pb-10 lg:pb-14 leading-tight">
               Elevate Your Look with Frames Designed for Lasting Impression
             </h1>
-            <div className="flex max-[390px]:flex-col flex-row max-[370px]:items-start items-center w-full gap-3">
+            <div className="flex max-[450px]:flex-col flex-row max-[370px]:items-start items-center w-full gap-3">
               <div className="w-full sm:w-fit">
                 <PrimaryButton
                   title="Our Collection"
