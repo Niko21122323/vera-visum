@@ -1,23 +1,18 @@
-// components/products/FilterButtons.tsx
 import { GET_COLLECTIONS_QUERY } from "@/lib/graphql/queries";
 import { shopifyFetch } from "@/lib/shopify";
-import FilterDropdownUI from "../FilterDropdown";
+import FilterDropdownUI from "../FilterDropdownUI";
 
-export default async function FilterButtons({
-  currentFilter,
-}: {
-  currentFilter: string;
-}) {
+export default async function FilterButtons() {
   "use cache";
 
   const data = await shopifyFetch<any>({
     query: GET_COLLECTIONS_QUERY,
-    variables: { first: 20 },
+    variables: { first: 25 },
   });
 
   const collections =
     data?.collections?.nodes?.filter(
-      (col: any) => !["frontpage", "home-page"].includes(col.handle)
+      (col: any) => !["frontpage", "home-page"].includes(col.handle),
     ) || [];
 
   const options = [
@@ -28,5 +23,5 @@ export default async function FilterButtons({
     { label: "Discount", value: "discount" },
   ];
 
-  return <FilterDropdownUI currentFilter={currentFilter} options={options} />;
+  return <FilterDropdownUI options={options} />;
 }

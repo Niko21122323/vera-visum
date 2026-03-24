@@ -4,8 +4,8 @@
 import type * as StorefrontTypes from './storefront.types.d.ts';
 
 export type ProductDetailsFragment = (
-  Pick<StorefrontTypes.Product, 'id' | 'title' | 'handle' | 'descriptionHtml'>
-  & { collections: { nodes: Array<Pick<StorefrontTypes.Collection, 'title'>> }, priceRange: { minVariantPrice: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }, images: { nodes: Array<Pick<StorefrontTypes.Image, 'url' | 'altText' | 'width' | 'height'>> }, variants: { nodes: Array<(
+  Pick<StorefrontTypes.Product, 'id' | 'title' | 'handle' | 'createdAt' | 'descriptionHtml'>
+  & { collections: { nodes: Array<Pick<StorefrontTypes.Collection, 'handle'>> }, priceRange: { minVariantPrice: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }, images: { nodes: Array<Pick<StorefrontTypes.Image, 'url' | 'altText' | 'width' | 'height'>> }, variants: { nodes: Array<(
       Pick<StorefrontTypes.ProductVariant, 'id' | 'availableForSale'>
       & { price: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>, compareAtPrice?: StorefrontTypes.Maybe<Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>> }
     )> } }
@@ -18,8 +18,8 @@ export type GetAllProductsQueryVariables = StorefrontTypes.Exact<{
 
 
 export type GetAllProductsQuery = { products: { nodes: Array<(
-      Pick<StorefrontTypes.Product, 'availableForSale' | 'vendor' | 'productType' | 'id' | 'title' | 'handle' | 'descriptionHtml'>
-      & { collections: { nodes: Array<Pick<StorefrontTypes.Collection, 'title'>> }, priceRange: { minVariantPrice: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }, images: { nodes: Array<Pick<StorefrontTypes.Image, 'url' | 'altText' | 'width' | 'height'>> }, variants: { nodes: Array<(
+      Pick<StorefrontTypes.Product, 'availableForSale' | 'vendor' | 'productType' | 'id' | 'title' | 'handle' | 'createdAt' | 'descriptionHtml'>
+      & { collections: { nodes: Array<Pick<StorefrontTypes.Collection, 'handle'>> }, priceRange: { minVariantPrice: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }, images: { nodes: Array<Pick<StorefrontTypes.Image, 'url' | 'altText' | 'width' | 'height'>> }, variants: { nodes: Array<(
           Pick<StorefrontTypes.ProductVariant, 'id' | 'availableForSale'>
           & { price: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>, compareAtPrice?: StorefrontTypes.Maybe<Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>> }
         )> } }
@@ -122,8 +122,8 @@ export type GetProductQueryVariables = StorefrontTypes.Exact<{
 
 
 export type GetProductQuery = { product?: StorefrontTypes.Maybe<(
-    Pick<StorefrontTypes.Product, 'id' | 'title' | 'handle' | 'descriptionHtml'>
-    & { seo: Pick<StorefrontTypes.Seo, 'description' | 'title'>, collections: { nodes: Array<Pick<StorefrontTypes.Collection, 'title'>> }, priceRange: { minVariantPrice: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }, images: { nodes: Array<Pick<StorefrontTypes.Image, 'url' | 'altText' | 'width' | 'height'>> }, variants: { nodes: Array<(
+    Pick<StorefrontTypes.Product, 'id' | 'title' | 'handle' | 'createdAt' | 'descriptionHtml'>
+    & { seo: Pick<StorefrontTypes.Seo, 'description' | 'title'>, collections: { nodes: Array<Pick<StorefrontTypes.Collection, 'handle'>> }, priceRange: { minVariantPrice: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }, images: { nodes: Array<Pick<StorefrontTypes.Image, 'url' | 'altText' | 'width' | 'height'>> }, variants: { nodes: Array<(
         Pick<StorefrontTypes.ProductVariant, 'id' | 'availableForSale'>
         & { price: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>, compareAtPrice?: StorefrontTypes.Maybe<Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>> }
       )> } }
@@ -186,8 +186,8 @@ export type GetBestSellingProductsQueryVariables = StorefrontTypes.Exact<{
 
 
 export type GetBestSellingProductsQuery = { products: { nodes: Array<(
-      Pick<StorefrontTypes.Product, 'id' | 'title' | 'handle' | 'descriptionHtml'>
-      & { collections: { nodes: Array<Pick<StorefrontTypes.Collection, 'title'>> }, priceRange: { minVariantPrice: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }, images: { nodes: Array<Pick<StorefrontTypes.Image, 'url' | 'altText' | 'width' | 'height'>> }, variants: { nodes: Array<(
+      Pick<StorefrontTypes.Product, 'id' | 'title' | 'handle' | 'createdAt' | 'descriptionHtml'>
+      & { collections: { nodes: Array<Pick<StorefrontTypes.Collection, 'handle'>> }, priceRange: { minVariantPrice: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }, images: { nodes: Array<Pick<StorefrontTypes.Image, 'url' | 'altText' | 'width' | 'height'>> }, variants: { nodes: Array<(
           Pick<StorefrontTypes.ProductVariant, 'id' | 'availableForSale'>
           & { price: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>, compareAtPrice?: StorefrontTypes.Maybe<Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>> }
         )> } }
@@ -201,8 +201,8 @@ export type GetCollectionProductsQueryVariables = StorefrontTypes.Exact<{
 
 
 export type GetCollectionProductsQuery = { collection?: StorefrontTypes.Maybe<{ products: { nodes: Array<(
-        Pick<StorefrontTypes.Product, 'availableForSale' | 'vendor' | 'productType' | 'id' | 'title' | 'handle' | 'descriptionHtml'>
-        & { collections: { nodes: Array<Pick<StorefrontTypes.Collection, 'title'>> }, priceRange: { minVariantPrice: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }, images: { nodes: Array<Pick<StorefrontTypes.Image, 'url' | 'altText' | 'width' | 'height'>> }, variants: { nodes: Array<(
+        Pick<StorefrontTypes.Product, 'availableForSale' | 'vendor' | 'productType' | 'id' | 'title' | 'handle' | 'createdAt' | 'descriptionHtml'>
+        & { collections: { nodes: Array<Pick<StorefrontTypes.Collection, 'handle'>> }, priceRange: { minVariantPrice: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }, images: { nodes: Array<Pick<StorefrontTypes.Image, 'url' | 'altText' | 'width' | 'height'>> }, variants: { nodes: Array<(
             Pick<StorefrontTypes.ProductVariant, 'id' | 'availableForSale'>
             & { price: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>, compareAtPrice?: StorefrontTypes.Maybe<Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>> }
           )> } }
@@ -221,8 +221,8 @@ export type GetNewestProductsQueryVariables = StorefrontTypes.Exact<{
 
 
 export type GetNewestProductsQuery = { products: { nodes: Array<(
-      Pick<StorefrontTypes.Product, 'id' | 'title' | 'handle' | 'descriptionHtml'>
-      & { collections: { nodes: Array<Pick<StorefrontTypes.Collection, 'title'>> }, priceRange: { minVariantPrice: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }, images: { nodes: Array<Pick<StorefrontTypes.Image, 'url' | 'altText' | 'width' | 'height'>> }, variants: { nodes: Array<(
+      Pick<StorefrontTypes.Product, 'id' | 'title' | 'handle' | 'createdAt' | 'descriptionHtml'>
+      & { collections: { nodes: Array<Pick<StorefrontTypes.Collection, 'handle'>> }, priceRange: { minVariantPrice: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }, images: { nodes: Array<Pick<StorefrontTypes.Image, 'url' | 'altText' | 'width' | 'height'>> }, variants: { nodes: Array<(
           Pick<StorefrontTypes.ProductVariant, 'id' | 'availableForSale'>
           & { price: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>, compareAtPrice?: StorefrontTypes.Maybe<Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>> }
         )> } }
@@ -234,8 +234,8 @@ export type GetSaleProductsQueryVariables = StorefrontTypes.Exact<{
 
 
 export type GetSaleProductsQuery = { products: { nodes: Array<(
-      Pick<StorefrontTypes.Product, 'id' | 'title' | 'handle' | 'descriptionHtml'>
-      & { collections: { nodes: Array<Pick<StorefrontTypes.Collection, 'title'>> }, priceRange: { minVariantPrice: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }, images: { nodes: Array<Pick<StorefrontTypes.Image, 'url' | 'altText' | 'width' | 'height'>> }, variants: { nodes: Array<(
+      Pick<StorefrontTypes.Product, 'id' | 'title' | 'handle' | 'createdAt' | 'descriptionHtml'>
+      & { collections: { nodes: Array<Pick<StorefrontTypes.Collection, 'handle'>> }, priceRange: { minVariantPrice: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'> }, images: { nodes: Array<Pick<StorefrontTypes.Image, 'url' | 'altText' | 'width' | 'height'>> }, variants: { nodes: Array<(
           Pick<StorefrontTypes.ProductVariant, 'id' | 'availableForSale'>
           & { price: Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>, compareAtPrice?: StorefrontTypes.Maybe<Pick<StorefrontTypes.MoneyV2, 'amount' | 'currencyCode'>> }
         )> } }

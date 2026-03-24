@@ -6,10 +6,11 @@ export const PRODUCT_FRAGMENT = graphql`
     id
     title
     handle
+    createdAt
     descriptionHtml
-    collections(first: 1) {
+    collections(first: 5) {
       nodes {
-        title
+        handle
       }
     }
     priceRange {
@@ -91,12 +92,10 @@ export const CART_FRAGMENT = graphql`
           ... on ProductVariant {
             id
             title
-            # --- ADD THIS SECTION ---
             price {
               amount
               currencyCode
             }
-            # ------------------------
             product {
               title
               handle
@@ -156,7 +155,6 @@ export const GET_PRODUCT_QUERY = graphql`
   }
 `;
 
-// This query is for generateStaticParams to pre-build every product page
 export const GET_ALL_HANDLES_QUERY = graphql`
   query GetAllHandles {
     products(first: 250) {

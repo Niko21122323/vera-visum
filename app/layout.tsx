@@ -32,7 +32,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         suppressHydrationWarning
-        className={`${geistSans.variable} ${italiana.variable} antialiased`}
+        className={`${geistSans.variable} ${italiana.variable} antialiased bg-body`}
       >
         <FramerProvider>
           <Suspense fallback={null}>

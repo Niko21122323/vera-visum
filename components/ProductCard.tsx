@@ -39,7 +39,7 @@ const ProductCard = ({
           <CartIconButton variantId={variantId} />
         </div>
       </div>
-      <div className="pt-6 px-2">
+      <div className="pt-6">
         {collection && (
           <p className="text-[12px] text-foreground/60 pb-2">{collection}</p>
         )}
