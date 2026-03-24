@@ -12,10 +12,14 @@ const PrimaryButton = ({
   return (
     <Link
       href={link}
-      className={`relative flex items-center justify-center w-full px-8 py-3.5 rounded-full ease-in-out group ${theme === "dark" ? "bg-foreground" : "bg-background"}`}
+      className={`relative flex items-center justify-center w-full px-8 py-3.5 ease-in-out group ${
+        theme === "dark" ? "bg-foreground" : "bg-background"
+      }`}
     >
       <span
-        className={`relative z-10 ${theme === "dark" ? "text-background" : "text-foreground"}`}
+        className={`relative z-10 ${
+          theme === "dark" ? "text-background" : "text-foreground"
+        }`}
       >
         {title}
       </span>

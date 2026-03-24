@@ -4,6 +4,7 @@ import womensCollectionImage from "../../../public/assets/photos/home/collection
 import unisexCollectionImage from "../../../public/assets/photos/home/collection-unisex-image.jpg";
 import PrimaryButton from "@/components/buttons/PrimaryButton";
 import Link from "next/link";
+import SecondaryButton from "@/components/buttons/SecondaryButton";
 
 const collections = [
   {
@@ -30,7 +31,7 @@ const CollectionsSection = () => {
   return (
     <section>
       <div className="lg:container lg:mx-auto lg:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 grid-rows-0 gap-0 lg:rounded-3xl overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-2 grid-rows-0 gap-0 overflow-hidden">
           {collections.map((collection) => (
             <div
               key={collection.id}
@@ -54,10 +55,9 @@ const CollectionsSection = () => {
                   {collection.title}
                 </h4>
                 <div className="lg:w-fit lg:hidden">
-                  <PrimaryButton
+                  <SecondaryButton
                     title="View Collection"
                     link={collection.link}
-                    theme="light"
                   />
                 </div>
               </div>

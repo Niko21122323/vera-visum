@@ -56,7 +56,7 @@ export default function ClientNav({ menuItems }: ClientNavProps) {
         animate={hidden ? "hidden" : "visible"}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 left-0 w-full h-auto z-50 transition-colors duration-500 ${
-          isScrolled ? "bg-background" : "bg-transparent"
+          isScrolled ? "bg-background shadow-md" : "bg-transparent"
         }`}
       >
         <div className="container mx-auto px-6">

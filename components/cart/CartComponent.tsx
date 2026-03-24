@@ -23,7 +23,7 @@ const CartComponent = () => {
         action,
         lineId,
         quantity,
-      }: { action: "update" | "delete"; lineId: string; quantity?: number },
+      }: { action: "update" | "delete"; lineId: string; quantity?: number }
     ) => {
       if (!state) return state;
       if (action === "delete") {
@@ -39,14 +39,14 @@ const CartComponent = () => {
           ...state,
           lines: {
             nodes: state.lines.nodes.map((node: any) =>
-              node.id === lineId ? { ...node, quantity } : node,
+              node.id === lineId ? { ...node, quantity } : node
             ),
           },
         };
       }
 
       return state;
-    },
+    }
   );
 
   const handleUpdateQuantity = async (lineId: string, newQuantity: number) => {
@@ -101,7 +101,7 @@ const CartComponent = () => {
           ) : (
             optimisticCart.lines.nodes.map((item: any) => (
               <div key={item.id} className="grid grid-cols-12 gap-4">
-                <div className="relative aspect-square rounded-md overflow-hidden col-span-3">
+                <div className="relative aspect-square overflow-hidden col-span-3">
                   <Image
                     src={item.merchandise.image?.url || "/placeholder.png"}
                     alt={item.merchandise.product.title}
@@ -117,7 +117,10 @@ const CartComponent = () => {
                       title={item.merchandise.product.title}
                     >
                       {item.merchandise.product.title.length > 15
-                        ? `${item.merchandise.product.title.substring(0, 15)}...`
+                        ? `${item.merchandise.product.title.substring(
+                            0,
+                            15
+                          )}...`
                         : item.merchandise.product.title}
                     </p>
                     <p
@@ -134,7 +137,7 @@ const CartComponent = () => {
                         onClick={() =>
                           handleUpdateQuantity(item.id, item.quantity - 1)
                         }
-                        className="flex items-center justify-center text-sm text-foreground size-7 bg-foreground/5 cursor-pointer rounded-sm"
+                        className="flex items-center justify-center text-sm text-foreground size-7 bg-foreground/5 cursor-pointer"
                         title="Remove"
                       >
                         <IoRemoveOutline />
@@ -150,7 +153,7 @@ const CartComponent = () => {
                         onClick={() =>
                           handleUpdateQuantity(item.id, item.quantity + 1)
                         }
-                        className="flex items-center justify-center text-sm text-foreground size-7 bg-foreground/5 cursor-pointer rounded-sm"
+                        className="flex items-center justify-center text-sm text-foreground size-7 bg-foreground/5 cursor-pointer"
                         title="Add More"
                       >
                         <IoAddOutline />
@@ -159,7 +162,7 @@ const CartComponent = () => {
                     <button
                       type="button"
                       onClick={() => handleRemove(item.id)}
-                      className="flex items-center justify-center size-7 bg-foreground/5 text-foreground text-sm rounded-sm cursor-pointer"
+                      className="flex items-center justify-center size-7 bg-foreground/5 text-foreground text-sm cursor-pointer"
                       title="Remove from Cart"
                     >
                       <IoTrashOutline />
@@ -191,13 +194,12 @@ const CartComponent = () => {
                     <span className="text-foreground/60 text-[12px] mr-1">
                       {optimisticCart.cost.totalAmount.currencyCode}
                     </span>
-                    {/* SUBTOTAL PRICE FORMATTED HERE */}
                     {formatPrice(optimisticCart.cost.totalAmount.amount)}
                   </p>
                 </div>
                 <Link
                   href={optimisticCart.checkoutUrl}
-                  className="flex items-center justify-center text-background text-center rounded-md bg-foreground px-4 py-3.5"
+                  className="flex items-center justify-center text-background text-center bg-foreground px-4 py-3.5"
                 >
                   Checkout
                 </Link>

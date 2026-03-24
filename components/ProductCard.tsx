@@ -17,7 +17,7 @@ const ProductCard = ({
       <div className="relative">
         <Link
           href={`/products/${productLink}`}
-          className="relative flex aspect-square rounded-3xl overflow-hidden group"
+          className="relative flex aspect-square overflow-hidden group"
         >
           <Image
             src={image}
@@ -30,7 +30,7 @@ const ProductCard = ({
 
         {tag && (
           <div className="absolute top-5 left-4 z-40">
-            <span className="block px-3 py-1.5 bg-foreground text-background rounded-full text-[12px] font-light">
+            <span className="block px-3 py-1.5 bg-foreground text-background  text-[12px] font-light">
               {tag}
             </span>
           </div>
